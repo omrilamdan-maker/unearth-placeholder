@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Land UnEarth</title>
   <style>
     body {
@@ -13,28 +13,46 @@
       text-align: center;
     }
     header {
-      padding: 2rem;
+      padding: 2rem 1rem 1rem;
       font-size: 2.5rem;
       font-weight: bold;
     }
+    .subtitle {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
     .scene {
       position: relative;
-      height: 80vh;
+      height: 70vh;
     }
     .tree {
       position: absolute;
       bottom: 50px;
-      width: 80px;
-      height: 150px;
-      background: green;
-      border-radius: 40px;
-      animation: sway 3s ease-in-out infinite alternate;
+      width: 120px;
+      height: 200px;
+      background: radial-gradient(circle at center, #228B22 60%, #006400);
+      border-radius: 60px;
+      animation: sway 4s ease-in-out infinite alternate;
     }
-    .tree.left { left: 20px; }
-    .tree.right { right: 20px; }
+    .tree.left { left: 10px; }
+    .tree.right { right: 10px; }
     @keyframes sway {
-      from { transform: rotate(-3deg); }
-      to { transform: rotate(3deg); }
+      from { transform: rotate(-2deg); }
+      to { transform: rotate(2deg); }
+    }
+    .form-container {
+      margin: 0 auto;
+      max-width: 400px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 1rem;
+      border-radius: 10px;
+    }
+    input {
+      width: 100%;
+      padding: 0.5rem;
+      margin: 0.5rem 0;
+      border: none;
+      border-radius: 5px;
     }
     .horizon {
       position: absolute;
@@ -53,9 +71,18 @@
 </head>
 <body>
   <header>Land UnEarth</header>
+  <div class="subtitle">Landowner? Please leave your details below and we will call you shortly.</div>
   <div class="scene">
     <div class="tree left"></div>
     <div class="tree right"></div>
+    <div class="form-container">
+      <form>
+        <input type="text" placeholder="Full Name" required />
+        <input type="text" placeholder="Parcel ID" required />
+        <input type="tel" placeholder="Phone Number" required />
+        <input type="email" placeholder="Email" required />
+      </form>
+    </div>
     <div class="horizon"></div>
     <div class="houses">🏠 🏡 🏘️</div>
   </div>
