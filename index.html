@@ -8,10 +8,10 @@
 <style>
   body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    color: white;
+    font-family: 'Arial', sans-serif;
+    color: #4a3f35;
     text-align: center;
-    background: url('your-image.jpg') no-repeat center center/cover;
+    background: url('https://images.unsplash.com/photo-1501785888041-af3ef285b470') no-repeat center center/cover;
     background-attachment: fixed;
     display: flex;
     flex-direction: column;
@@ -22,94 +22,46 @@
   header {
     font-size: 3rem;
     font-weight: bold;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
-    animation: fadeInUp 1.5s ease forwards;
+    color: #fff8e7;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+    margin-bottom: 1rem;
   }
-  .subtitle {
-    font-size: 1.5rem;
+  font-size: 1.3rem;
+    color: #fff8e7;
     margin-bottom: 2rem;
-    animation: fadeInUp 2s ease forwards;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
   }
   .form-container {
-    position: relative;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 248, 231, 0.85);
     padding: 1.5rem;
     border-radius: 10px;
     max-width: 400px;
     width: 90%;
-    backdrop-filter: blur(5px);
-    animation: fadeInUp 2.5s ease forwards;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
   }
   input {
     width: 100%;
     padding: 0.8rem;
     margin: 0.5rem 0;
-    border: none;
+    border: 1px solid #d2b48c;
     border-radius: 5px;
     font-size: 1rem;
   }
   button {
     width: 100%;
     padding: 0.8rem;
-    background: #ffd700;
-    color: #333;
+    background: #d2b48c;
+    color: #4a3f35;
     font-weight: bold;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: transform 0.3s ease, background 0.3s ease;
+    transition: background 0.3s ease;
   }
   button:hover {
-    transform: scale(1.05);
-    background: #ffcc00;
-  }
-  .tree {
-    position: absolute;
-    width: 120px;
-    height: 180px;
-    opacity: 0;
-    transform: scale(0);
-    transition: all 1.5s ease;
-  }
-  .tree.show {
-    opacity: 1;
-    transform: scale(1);
-  }
-  .tree-left { left: -140px; top: 10px; }
-  .tree-right { right: -140px; top: 10px; }
-  @keyframes fadeInUp {
-    to { opacity: 1; transform: translateY(0); }
+    background: #c19a6b;
   }
 </style>
-<script src="https://unpkg.com/@ottie-player@latest/dist/lottie-player.js</script>
 </head>
 <body>
   <header>Land UnEarth</header>
-  <div class="subtitle">Landowner? Please leave your details below and we will call you shortly.</div>
-  <div class="form-container">
-    <form>
-      <div style="position:relative;">
-        <input type="text" placeholder="Full Name" required onfocus="showTree('tree1')">
-        <div id="tree1" class="tree tree-left">
-          <lottie-player src="https://assets9.lottiefiles.com/packages/lf20_tropicaltree.json"
-            background="transparent" speed="1" style="sition:relative;">
-        <input type="text" placeholder="Parcel ID" required onfocus="showTree('tree2')">
-        <div id="tree2" class="tree tree-right">
-          <lottie-player src="https://assets9.lottiefiles.com/packages/lf20_tropicaltree.json"
-            background="transparent" speediv style="position:relative;">
-        <input type="tel" placeholder="Phone Number" required onfocus="showTree('tree3')">
-        <div id="tree3" class="tree tree-left">
-          <lottie-player src="https://assets9.lottiefiles.com/packages/lf20_tropicaltree.json"
-            background="transparent     <div style="position:relative;">
-        <input type="email" placeholder="Email" required onfocus="showTree('tree4')">
-        <div id="tree4" class="tree tree-right">
-          <lottie-player src="https://assets9.lottiefiles.com/packages/lf20_tropicaltree.json"
-            background="transparent" speed="1" style="width:120px;height:180px;" autoplay
-  </div>
-<script>
-  function showTree(id) {
-    document.getElementById(id).classList.add('show');
-  }
-</script>
-</body>
-</html>
