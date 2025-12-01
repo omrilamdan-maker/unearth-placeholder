@@ -34,8 +34,27 @@
       border-radius: 60px;
       animation: sway 4s ease-in-out infinite alternate;
     }
-    .tree.left { left: 10px; }
-    .tree.right { right: 10px; }
+    <div class="tree left">
+  <lottie-player 
+    src="https://assets9.lottiefiles.com/packages/lf20_tropicaltree.json"
+    background="transparent"
+    speed="1"
+    style="width: 200px; height: 300px;"
+    loop
+    autoplay>
+  </lottie-player>
+</div>
+
+<div class="tree right">
+  <lottie-player 
+    src="https://assets9.lottiefiles.com/packages/lf20_tropicaltree.json"
+    background="transparent"
+    speed="1"
+    style="width: 200px; height: 300px;"
+    loop
+    autoplay>
+  </lottie-player>
+</div>
     @keyframes sway {
       from { transform: rotate(-2deg); }
       to { transform: rotate(2deg); }
@@ -68,6 +87,7 @@
       font-size: 2rem;
     }
   </style>
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
 <body>
   <header>Land UnEarth</header>
