@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,31 +31,8 @@
       bottom: 50px;
       width: 120px;
       height: 200px;
-      background: radial-gradient(circle at center, #228B22 60%, #006400);
-      border-radius: 60px;
       animation: sway 4s ease-in-out infinite alternate;
     }
-    <div class="tree left">
-  <lottie-player 
-    src="https://assets9.lottiefiles.com/packages/lf20_tropicaltree.json"
-    background="transparent"
-    speed="1"
-    style="width: 200px; height: 300px;"
-    loop
-    autoplay>
-  </lottie-player>
-</div>
-
-<div class="tree right">
-  <lottie-player 
-    src="https://assets9.lottiefiles.com/packages/lf20_tropicaltree.json"
-    background="transparent"
-    speed="1"
-    style="width: 200px; height: 300px;"
-    loop
-    autoplay>
-  </lottie-player>
-</div>
     @keyframes sway {
       from { transform: rotate(-2deg); }
       to { transform: rotate(2deg); }
@@ -87,20 +65,27 @@
       font-size: 2rem;
     }
   </style>
-  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js</script>
 </head>
 <body>
   <header>Land UnEarth</header>
   <div class="subtitle">Landowner? Please leave your details below and we will call you shortly.</div>
   <div class="scene">
-    <div class="tree left"></div>
-    <div class="tree right"></div>
+    <div class="tree left">
+      https://assets9.lottiefiles.com/packages/lf20_tropicaltree.json
+      </lottie-player>
+    </div>
+    <div class="tree right">
+      https://assets9.lottiefiles.com/packages/lf20_tropicaltree.json
+      </lottie-player>
+    </div>
     <div class="form-container">
-      <form>
+      #
         <input type="text" placeholder="Full Name" required />
         <input type="text" placeholder="Parcel ID" required />
         <input type="tel" placeholder="Phone Number" required />
         <input type="email" placeholder="Email" required />
+        <button type="submit">Submit</button>
       </form>
     </div>
     <div class="horizon"></div>
