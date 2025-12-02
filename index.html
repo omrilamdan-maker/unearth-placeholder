@@ -10,46 +10,49 @@
     margin: 0;
     font-family: 'Arial', sans-serif;
     color: #4a3f35;
-    background: url('https://images.unsplash.com/photo-1501785888041-af3ef285b470') no-repeat center center/cover;
+    background: url('YOUR_IMAGE_URL_HERE') no-repeat center center/cover;
     background-attachment: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
   }
+
   .container {
     display: flex;
+    flex-wrap: wrap;
     width: 90%;
     max-width: 1200px;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+    gap: 1rem;
   }
-  .sidebar {
-    width: 25%;
-    background: rgba(255, 248, 231, 0.85);
-    padding: 1rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    font-size: 1rem;
-  }
-  .form-container {
-    width: 40%;
-    background: rgba(255, 248, 231, 0.85);
+
+  .sidebar, .form-container {
+    background: rgba(255, 248, 231, 0.9);
     padding: 1.5rem;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    font-size: 1rem;
+    flex: 1 1 300px;
+  }
+
+  .form-container {
     text-align: center;
   }
+
   header {
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 1rem;
     color: #4a3f35;
   }
+
   .subtitle {
     font-size: 1.2rem;
     margin-bottom: 1rem;
   }
+
   input {
     width: 100%;
     padding: 0.8rem;
@@ -58,6 +61,7 @@
     border-radius: 5px;
     font-size: 1rem;
   }
+
   button {
     width: 100%;
     padding: 0.8rem;
@@ -69,8 +73,19 @@
     cursor: pointer;
     transition: background 0.3s ease;
   }
+
   button:hover {
     background: #c19a6b;
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+      align-items: center;
+    }
+    .sidebar, .form-container {
+      width: 100%;
+    }
   }
 </style>
 </head>
@@ -78,7 +93,7 @@
   <div class="container">
     <!-- Left Sidebar -->
     <div class="sidebar">
-      <h3>Why Share Your Land?</h3>
+      <h3>What Can We Do For You?</h3>
       <ul>
         <li>Get fair offers for your property</li>
         <li>Connect with trusted buyers</li>
@@ -89,7 +104,7 @@
     <!-- Main Form -->
     <div class="form-container">
       <header>Land UnEarth</header>
-      <div class="subtitle">Own desert land? Share your details and we’ll reach out!</div>
+      <div class="subtitle">Landowner? We are here to turn your vacant land into your profit. Please leave your details below and we will return to you shortly.</div>
       <form>
         <input type="text" placeholder="Full Name" required>
         <input type="text" placeholder="Parcel ID" required>
@@ -104,7 +119,7 @@
       <h3>Need Help?</h3>
       <p>Call us: <strong>+1-800-555-1234</strong></p>
       <p>Email: <strong>support@landunearth.com</strong></p>
-      <p>We’re here to assist you 24/7!</p>
+      <p>We are here to help you with any questions you may have!</p>
     </div>
   </div>
 </body>
