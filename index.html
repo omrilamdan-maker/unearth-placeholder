@@ -2,14 +2,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Land UnEarth</title>
+
 <style>
   body {
     margin: 0;
     font-family: 'Arial', sans-serif;
     color: #4a3f35;
+    /* Uses your uploaded filename with space & parentheses */
     background: url('assets/images/Designer (1).png') no-repeat center center/cover;
     background-attachment: fixed;
     display: flex;
@@ -37,94 +39,5 @@
     flex: 1 1 300px;
   }
 
-  .form-container {
-    text-align: center;
-  }
+  /* -------- FRAME FIX FOR THE CENTER BOX -------- */
 
-  header {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-    color: #4a3f35;
-  }
-
-  .subtitle {
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-    line-height: 1.5;
-  }
-
-  input {
-    width: 100%;
-    padding: 0.8rem;
-    margin: 0.5rem 0;
-    border: 1px solid #d2b48c;
-    border-radius: 5px;
-    font-size: 1rem;
-  }
-
-  button {
-    width: 100%;
-    padding: 0.8rem;
-    background: #d2b48c;
-    color: #4a3f35;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-
-  button:hover {
-    background: #c19a6b;
-  }
-
-  @media (max-width: 768px) {
-    .container {
-      flex-direction: column;
-      align-items: center;
-    }
-    .sidebar, .form-container {
-      width: 100%;
-    }
-  }
-</style>
-</head>
-<body>
-  <div class="container">
-    <!-- Left Sidebar -->
-    <div class="sidebar">
-      <h3>What Can We Do For You?</h3>
-      <ul>
-        <li>Get fair offers for your property</li>
-        <li>Connect with trusted buyers</li>
-        <li>Quick and hassle-free process</li>
-      </ul>
-    </div>
-
-    <!-- Main Form -->
-    <div class="form-container">
-      <header>Land UnEarth</header>
-      <div class="subtitle">
-        Landowner? We are here to turn your vacant land into your profit.<br>
-        Please leave your details below and we will return to you shortly.
-      </div>
-      <form>
-        <input type="text" placeholder="Full Name" required>
-        <input type="text" placeholder="Parcel ID" required>
-        <input type="tel" placeholder="Phone Number" required>
-        <input type="email" placeholder="Email" required>
-        <button type="submit">Submit</button>
-      </form>
-    </div>
-
-    <!-- Right Sidebar -->
-    <div class="sidebar">
-      <h3>Need Help?</h3>
-      <p>Call us: <strong>+1-800-555-1234</strong></p>
-      <p>Email: <strong>support@landunearth.com</strong></p>
-      <p>We are here to help you with any questions you may have!</p>
-    </div>
-  </div>
-</body>
-</html>
