@@ -7,6 +7,12 @@
 <title>Land UnEarth</title>
 
 <style>
+  /* Ensure padding & borders are included in element width/height
+     (prevents subtle overflow that can look like a clipped edge) */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
   /* Page background */
   body {
     margin: 0;
@@ -17,7 +23,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh; /* more robust on mobile */
+    min-height: 100vh;
   }
 
   /* Layout */
@@ -31,41 +37,37 @@
     gap: 1rem;
   }
 
-  /* Sidebars (keep consistent) */
+  /* Column widths: avoid competition/overlap */
   .sidebar {
-    background: rgba(255, 248, 231, 0.94);
-    padding: 1.5rem;
-    border-radius: 14px; /* match form radius */
-    box-shadow: 0 8px 24px rgba(0,0,0,0.28);
-    font-size: 1rem;
-    flex: 1 1 300px;
-    border: 1px solid rgba(74, 63, 53, 0.20);
-    overflow: hidden; /* prevent child bleed past corners */
+    flex: 0 1 28%;
+    min-width: 280px;
+  }
+  .form-container {
+    flex: 0 1 40%;
+    min-width: 320px; /* keeps enough room for inputs without overflow */
   }
 
-  /* -------- FIXED EDGES FOR CENTER FORM -------- */
+  /* Card styles */
+  .sidebar,
+  .form-container {
+    background: rgba(255, 248, 231, 0.95);
+    padding: 1.5rem;
+    border-radius: 14px;
+    border: 1px solid rgba(74, 63, 53, 0.25);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.30);
+    font-size: 1rem;
+  }
+
+  /* Center card: no clipping on edges */
   .form-container {
     text-align: center;
-
-    /* Visual separation */
-    background: rgba(255, 248, 231, 0.97);
-    border: 1px solid rgba(74, 63, 53, 0.28); /* crisp visible edge */
-    border-radius: 14px;                      /* match sidebars */
-    box-shadow: 0 12px 28px rgba(0,0,0,0.30); /* outside drop shadow */
-
-    /* Box model & stacking */
-    padding: 1.5rem;
     position: relative;
     z-index: 1;
-    flex: 1 1 300px;
-
-    /* IMPORTANT: keep children from leaking past rounded corners */
-    overflow: hidden;
-
-    /* Make sure the border sits outside the background, preventing halo artifacts */
+    /* IMPORTANT: remove overflow clipping so the right edge can render cleanly */
+    overflow: visible;
+    /* keep background within padding (prevents halo artifacts) */
     background-clip: padding-box;
   }
-  /* -------- END FIX -------- */
 
   header {
     font-size: 2rem;
@@ -80,27 +82,27 @@
     line-height: 1.5;
   }
 
-  /* Inputs: match radius and avoid heavy outer shadows */
+  /* Inputs: make sure they never exceed the card’s inner box */
   input {
     width: 100%;
     padding: 0.8rem;
     margin: 0.5rem 0;
     border: 1px solid #d2b48c;
-    border-radius: 12px; /* slightly less than container for visual harmony */
+    border-radius: 12px;
     font-size: 1rem;
     background: #fff;
     color: #2f261f;
-    box-shadow: 0 1px 0 rgba(0,0,0,0.08); /* subtle, won’t show past container edge */
+    box-shadow: 0 1px 0 rgba(0,0,0,0.08);
   }
 
   button {
     width: 100%;
     padding: 0.8rem;
     background: #d2b48c;
-    color: #2f261f;     /* darker for contrast */
+    color: #2f261f;
     font-weight: bold;
     border: none;
-    border-radius: 12px; /* match inputs */
+    border-radius: 12px;
     cursor: pointer;
     transition: background 0.2s ease;
     box-shadow: 0 1px 0 rgba(0,0,0,0.08);
@@ -110,21 +112,24 @@
     background: #c19a6b;
   }
 
-  @media (max-width: 768px) {
+  /* Mobile */
+  @media (max-width: 900px) {
     .container {
       flex-direction: column;
       align-items: center;
     }
     .sidebar, .form-container {
       width: 100%;
+      flex: 1 1 auto; /* full width stacked */
     }
+  }
 
-    /* Mobile: avoid fixed background jank and keep edges crisp */
+  @media (max-width: 768px) {
+    /* prevent iOS fixed-background artifacts that can look like clipped edges */
     body { background-attachment: scroll; }
-
     .form-container {
       background: rgba(255, 248, 231, 0.98);
-      box-shadow: 0 14px 32px rgba(0,0,0,0.32);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.32);
       border: 1px solid rgba(74, 63, 53, 0.32);
     }
   }
