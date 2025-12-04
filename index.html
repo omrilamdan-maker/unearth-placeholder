@@ -40,4 +40,125 @@
   }
 
   /* -------- FRAME FIX FOR THE CENTER BOX -------- */
+  .form-container {
+    text-align: center;
+
+    /* make the panel stand out more clearly */
+    position: relative;
+    z-index: 1;
+    background: rgba(255, 248, 231, 0.95);              /* slightly more opaque */
+    border: 1px solid rgba(74, 63, 53, 0.25);            /* subtle border tone */
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.28);             /* stronger shadow */
+    padding: 1.5rem;                                     /* keep your spacing */
+  }
+
+  /* inner hairline outline so the edge stays crisp on dark/light parts of the photo */
+  .form-container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    pointer-events: none;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+  }
+  /* -------- END FRAME FIX -------- */
+
+  header {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #4a3f35;
+  }
+
+  .subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.8rem;
+    margin: 0.5rem 0;
+    border: 1px solid #d2b48c;
+    border-radius: 8px; /* slightly rounder to match the container */
+    font-size: 1rem;
+    background: #fff;
+    box-shadow: 0 2px 0 rgba(0,0,0,0.06);
+  }
+
+  button {
+    width: 100%;
+    padding: 0.8rem;
+    background: #d2b48c;
+    color: #2f261f; /* darker for better contrast inside the framed box */
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  button:hover {
+    background: #c19a6b;
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+      align-items: center;
+    }
+    .sidebar, .form-container {
+      width: 100%;
+    }
+    /* mobile: avoid jank with fixed background and keep the frame visible */
+    body { background-attachment: scroll; }
+    .form-container {
+      background: rgba(255, 248, 231, 0.98);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.32);
+    }
+  }
+</style>
+</head>
+
+<body>
+  <div class="container">
+    <!-- Left Sidebar -->
+    <div class="sidebar">
+      <h3>What Can We Do For You?</h3>
+      <ul>
+        <li>Get fair offers for your property</li>
+        <li>Connect with trusted buyers</li>
+        <li>Quick and hassle-free process</li>
+      </ul>
+    </div>
+
+    <!-- Main Form -->
+    <div class="form-container">
+      <header>Land UnEarth</header>
+      <div class="subtitle">
+        Landowner? We are here to turn your vacant land into your profit.<br>
+        Please leave your details below and we will return to you shortly.
+      </div>
+      <form>
+        <input type="text" placeholder="Full Name" required>
+        <input type="text" placeholder="Parcel ID" required>
+        <input type="tel" placeholder="Phone Number" required>
+        <input type="email" placeholder="Email" required>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    <!-- Right Sidebar -->
+    <div class="sidebar">
+      <h3>Need Help?</h3>
+      <p>Call us: <strong>+1-800-555-1234</strong></p>
+      <p>Email: <strong>support@landunearth.com</strong></p>
+      <p>We are here to help you with any questions you may have!</p>
+    </div>
+  </div>
+</body>
+</html>
+
 
