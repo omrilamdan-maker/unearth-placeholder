@@ -1,22 +1,26 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Land UnEarth</title>
+
 <style>
+  /* Base page background */
   body {
     margin: 0;
     font-family: 'Arial', sans-serif;
     color: #4a3f35;
-    background: url('assets/images/Designer (1).png') no-repeat center center/cover;
+    background: url('assets/images/Designer (1).png') no-repeat center center / cover;
     background-attachment: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh; /* more robust than height:100vh for mobile */
   }
 
+  /* Layout wrapper */
   .container {
     display: flex;
     flex-wrap: wrap;
@@ -27,18 +31,47 @@
     gap: 1rem;
   }
 
-  .sidebar, .form-container {
-    background: rgba(255, 248, 231, 0.9);
+  /* Base card style for sidebars */
+  .sidebar {
+    background: rgba(255, 248, 231, 0.92);
     padding: 1.5rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.30);
     font-size: 1rem;
     flex: 1 1 300px;
   }
 
-  .form-container {
+  /* ---------- FRAME FIX: make the center box unmistakably framed ---------- */
+  /* Use a more specific selector so nothing overrides it */
+  .container .form-container {
     text-align: center;
+
+    /* VISUAL SEPARATION */
+    background: rgba(255, 248, 231, 0.97) !important; /* slightly more opaque */
+    border: 1.5px solid rgba(74, 63, 53, 0.35) !important; /* clear border */
+    border-radius: 12px !important;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.30) !important;
+
+    /* SPACING & POSITION */
+    padding: 1.5rem;
+    position: relative;
+    z-index: 1;
+    flex: 1 1 300px;
+
+    /* Keep the border visible inside padding */
+    background-clip: padding-box;
   }
+
+  /* Inner white hairline outline so the edge is crisp on dark/light photo areas */
+  .container .form-container::before {
+    content: "";
+    position: absolute;
+    inset: 0; /* top/right/bottom/left: 0 */
+    border-radius: 12px;
+    pointer-events: none;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.50);
+  }
+  /* ---------- END FRAME FIX ---------- */
 
   header {
     font-size: 2rem;
@@ -58,20 +91,23 @@
     padding: 0.8rem;
     margin: 0.5rem 0;
     border: 1px solid #d2b48c;
-    border-radius: 5px;
+    border-radius: 8px;                /* match container corners */
     font-size: 1rem;
+    background: #fff;
+    color: #2f261f;
+    box-shadow: 0 2px 0 rgba(0,0,0,0.06);
   }
 
   button {
     width: 100%;
     padding: 0.8rem;
     background: #d2b48c;
-    color: #4a3f35;
+    color: #2f261f;                    /* darker text for contrast */
     font-weight: bold;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: background 0.2s ease;
   }
 
   button:hover {
@@ -86,9 +122,18 @@
     .sidebar, .form-container {
       width: 100%;
     }
+
+    /* Mobile: avoid fixed background jank and ensure frame remains visible */
+    body { background-attachment: scroll; }
+    .container .form-container {
+      background: rgba(255, 248, 231, 0.98) !important;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.32) !important;
+      border: 1.5px solid rgba(74, 63, 53, 0.40) !important;
+    }
   }
 </style>
 </head>
+
 <body>
   <div class="container">
     <!-- Left Sidebar -->
@@ -105,14 +150,14 @@
     <div class="form-container">
       <header>Land UnEarth</header>
       <div class="subtitle">
-        Landowner? We are here to turn your vacant land into your profit.<br>
+        Landowner? We are here to turn your vacant land into your profit.<br />
         Please leave your details below and we will return to you shortly.
       </div>
       <form>
-        <input type="text" placeholder="Full Name" required>
-        <input type="text" placeholder="Parcel ID" required>
-        <input type="tel" placeholder="Phone Number" required>
-        <input type="email" placeholder="Email" required>
+        <input type="text" placeholder="Full Name" required />
+        <input type="text" placeholder="Parcel ID" required />
+        <input type="tel" placeholder="Phone Number" required />
+        <input type="email" placeholder="Email" required />
         <button type="submit">Submit</button>
       </form>
     </div>
