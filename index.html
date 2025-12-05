@@ -104,45 +104,48 @@
     </div>
   </div>
 
-  <script>
-    const form = document.getElementById('lead-form');
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const data = Object.fromEntries(new FormData(form));
+<script>
+  const form = document.getElementById('lead-form');
 
-      // Honeypot check
-      if (data.company && data.company.trim()) return;
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(form));
 
-      // ✅ Your GAS Web App URL MUST be inside quotes:
-      const endpoint = 'https://script.google.com/macros/s/AKfycbz4tz2RaYm0e0Vny1vg_mTRvVuRdGq13dPI09P4DYA10xk1cNI_Khi10B6yVluf7H1l/exec';
+    // Honeypot check
+    if (data.company && data.company.trim()) return;
 
-      try {
-        const res = await fetch(endpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ ...data, key: 'LandUnEarth2025!' }) // Secret key
-        });
+    // ✅ Your GAS Web App URL (must be inside quotes)
+    const endpoint = 'https://script.google.com/macros/s/AKfycbz4tz2RaYm0e0Vny1vg_mTRvVuRdGq13dPI09P4DYA10xk1cNI_Khi10B6yVluf7H1l/exec';
 
-        const text = await res.text();
-        console.log('GAS response:', text); // small helper for debugging
-        if (text === 'OK') {
-          alert('Thanks! We’ll be in touch shortly.');
-          form.reset();
-        } else if (text === 'Duplicate') {
-          alert('This Parcel/Phone/Email already exists.');
-        } else if (text === 'Invalid') {
-          alert('Invalid data format.');
-        } else if (text === 'Forbidden') {
-          alert('Submission blocked (secret mismatch).');
-        } else {
-          alert('Error: ' + text);
-        }
-      } catch (err) {
-        console.error(err);
-        alert('Network error. Please try again later.');
+    try {
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        // ✅ Change header to avoid CORS preflight
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ ...data, key: 'LandUnEarth2025!' }) // Secret must match GAS
+      });
+
+      const text = await res.text();
+      console.log('GAS response:', text); // helper for debugging
+
+      if (text === 'OK') {
+        alert('Thanks! We’ll be in touch shortly.');
+        form.reset();
+      } else if (text === 'Duplicate') {
+        alert('This Parcel/Phone/Email already exists.');
+      } else if (text === 'Invalid') {
+        alert('Invalid data format.');
+      } else if (text === 'Forbidden') {
+        alert('Submission blocked (secret mismatch).');
+      } else {
+        alert('Error: ' + text);
       }
-    });
-  </script>
+    } catch (err) {
+      console.error(err);
+      alert('Network error. Please try again later.');
+    }
+  });
+</script>
 </body>
 </html>
