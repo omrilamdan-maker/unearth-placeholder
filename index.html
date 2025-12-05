@@ -114,8 +114,8 @@
       // Honeypot check
       if (data.company && data.company.trim()) return;
 
-      // ✅ Paste your GAS Web App URL here:
-      const endpoint = https://script.google.com/macros/s/AKfycbz4tz2RaYm0e0Vny1vg_mTRvVuRdGq13dPI09P4DYA10xk1cNI_Khi10B6yVluf7H1l/exec;
+      // ✅ Your GAS Web App URL MUST be inside quotes:
+      const endpoint = 'https://script.google.com/macros/s/AKfycbz4tz2RaYm0e0Vny1vg_mTRvVuRdGq13dPI09P4DYA10xk1cNI_Khi10B6yVluf7H1l/exec';
 
       try {
         const res = await fetch(endpoint, {
@@ -125,6 +125,7 @@
         });
 
         const text = await res.text();
+        console.log('GAS response:', text); // small helper for debugging
         if (text === 'OK') {
           alert('Thanks! We’ll be in touch shortly.');
           form.reset();
@@ -133,11 +134,12 @@
         } else if (text === 'Invalid') {
           alert('Invalid data format.');
         } else if (text === 'Forbidden') {
-          alert('Submission blocked.');
+          alert('Submission blocked (secret mismatch).');
         } else {
           alert('Error: ' + text);
         }
-      } catch {
+      } catch (err) {
+        console.error(err);
         alert('Network error. Please try again later.');
       }
     });
