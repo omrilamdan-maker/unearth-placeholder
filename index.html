@@ -2,138 +2,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Land UnEarth</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <title>Land UnEarth</title>
 
-<style>
-  /* Ensure padding & borders are included in element width/height
-     (prevents subtle overflow that can look like a clipped edge) */
-  *, *::before, *::after {
-    box-sizing: border-box;
-  }
-
-  /* Page background */
-  body {
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-    color: #4a3f35;
-    background: url('assets/images/Designer (1).png') no-repeat center center / cover;
-    background-attachment: fixed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-  }
-
-  /* Layout */
-  .container {
-    display: flex;
-    flex-wrap: wrap;
-    width: 90%;
-    max-width: 1200px;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-
-  /* Column widths: avoid competition/overlap */
-  .sidebar {
-    flex: 0 1 28%;
-    min-width: 280px;
-  }
-  .form-container {
-    flex: 0 1 40%;
-    min-width: 320px; /* keeps enough room for inputs without overflow */
-  }
-
-  /* Card styles */
-  .sidebar,
-  .form-container {
-    background: rgba(255, 248, 231, 0.95);
-    padding: 1.5rem;
-    border-radius: 14px;
-    border: 1px solid rgba(74, 63, 53, 0.25);
-    box-shadow: 0 10px 24px rgba(0,0,0,0.30);
-    font-size: 1rem;
-  }
-
-  /* Center card: no clipping on edges */
-  .form-container {
-    text-align: center;
-    position: relative;
-    z-index: 1;
-    /* IMPORTANT: remove overflow clipping so the right edge can render cleanly */
-    overflow: visible;
-    /* keep background within padding (prevents halo artifacts) */
-    background-clip: padding-box;
-  }
-
-  header {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-    color: #4a3f35;
-  }
-
-  .subtitle {
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-    line-height: 1.5;
-  }
-
-  /* Inputs: make sure they never exceed the card’s inner box */
-  input {
-    width: 100%;
-    padding: 0.8rem;
-    margin: 0.5rem 0;
-    border: 1px solid #d2b48c;
-    border-radius: 12px;
-    font-size: 1rem;
-    background: #fff;
-    color: #2f261f;
-    box-shadow: 0 1px 0 rgba(0,0,0,0.08);
-  }
-
-  button {
-    width: 100%;
-    padding: 0.8rem;
-    background: #d2b48c;
-    color: #2f261f;
-    font-weight: bold;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: background 0.2s ease;
-    box-shadow: 0 1px 0 rgba(0,0,0,0.08);
-  }
-
-  button:hover {
-    background: #c19a6b;
-  }
-
-  /* Mobile */
-  @media (max-width: 900px) {
-    .container {
-      flex-direction: column;
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      color: #4a3f35;
+      background: url('assets/images/Designer (1).png') no-repeat center center / cover;
+      background-attachment: fixed;
+      display: flex;
+      justify-content: center;
       align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      width: 90%;
+      max-width: 1200px;
+      justify-content: space-between;
+      gap: 1rem;
     }
     .sidebar, .form-container {
+      background: rgba(255, 248, 231, 0.95);
+      padding: 1.5rem;
+      border-radius: 14px;
+      border: 1px solid rgba(74,63,53,0.25);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.30);
+      flex: 1 1 300px;
+    }
+    .form-container { text-align: center; }
+    header { font-size: 2rem; font-weight: bold; margin-bottom: 1rem; }
+    .subtitle { font-size: 1.2rem; margin-bottom: 1rem; line-height: 1.5; }
+    input {
       width: 100%;
-      flex: 1 1 auto; /* full width stacked */
+      padding: 0.8rem;
+      margin: 0.5rem 0;
+      border: 1px solid #d2b48c;
+      border-radius: 12px;
+      font-size: 1rem;
+      background: #fff;
+      color: #2f261f;
     }
-  }
-
-  @media (max-width: 768px) {
-    /* prevent iOS fixed-background artifacts that can look like clipped edges */
-    body { background-attachment: scroll; }
-    .form-container {
-      background: rgba(255, 248, 231, 0.98);
-      box-shadow: 0 12px 28px rgba(0,0,0,0.32);
-      border: 1px solid rgba(74, 63, 53, 0.32);
+    button {
+      width: 100%;
+      padding: 0.8rem;
+      background: #d2b48c;
+      color: #2f261f;
+      font-weight: bold;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
     }
-  }
-</style>
+    button:hover { background: #c19a6b; }
+    @media (max-width: 900px) { .container { flex-direction: column; } }
+  </style>
 </head>
 
 <body>
@@ -155,11 +83,15 @@
         Landowner? We are here to turn your vacant land into your profit.<br />
         Please leave your details below and we will return to you shortly.
       </div>
-      <form>
-        <input type="text" placeholder="Full Name" required />
-        <input type="text" placeholder="Parcel ID" required />
-        <input type="tel" placeholder="Phone Number" required />
-        <input type="email" placeholder="Email" required />
+
+      <form id="lead-form" novalidate>
+        <!-- Honeypot -->
+        <input type="text" name="company" style="position:absolute;left:-9999px;visibility:hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+        <input name="fullName" type="text" placeholder="Full Name" required pattern="^[A-Za-z\\s]{2,}$" title="Letters only">
+        <input name="parcelId" type="text" placeholder="Parcel ID (e.g., 001-041-20)" required pattern="^\\d{3}-\\d{3}-\\d{2}$" title="Format: 001-041-20">
+        <input name="phone" type="tel" placeholder="Phone Number" required pattern="^\\d{7,15}$" title="Digits only">
+        <input name="email" type="email" placeholder="Email" required>
         <button type="submit">Submit</button>
       </form>
     </div>
@@ -169,8 +101,46 @@
       <h3>Need Help?</h3>
       <p>Call us: <strong>+1-800-555-1234</strong></p>
       <p>Email: <strong>support@landunearth.com</strong></p>
-      <p>We are here to help you with any questions you may have!</p>
     </div>
   </div>
+
+  <script>
+    const form = document.getElementById('lead-form');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form));
+
+      // Honeypot check
+      if (data.company && data.company.trim()) return;
+
+      // ✅ Paste your GAS Web App URL here:
+      const endpoint = https://script.google.com/macros/s/AKfycbz4tz2RaYm0e0Vny1vg_mTRvVuRdGq13dPI09P4DYA10xk1cNI_Khi10B6yVluf7H1l/exec;
+
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ...data, key: 'LandUnEarth2025!' }) // Secret key
+        });
+
+        const text = await res.text();
+        if (text === 'OK') {
+          alert('Thanks! We’ll be in touch shortly.');
+          form.reset();
+        } else if (text === 'Duplicate') {
+          alert('This Parcel/Phone/Email already exists.');
+        } else if (text === 'Invalid') {
+          alert('Invalid data format.');
+        } else if (text === 'Forbidden') {
+          alert('Submission blocked.');
+        } else {
+          alert('Error: ' + text);
+        }
+      } catch {
+        alert('Network error. Please try again later.');
+      }
+    });
+  </script>
 </body>
 </html>
