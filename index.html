@@ -7,9 +7,8 @@
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <title>Land UnEarth</title>
 
-  <!-- ✅ Favicons -->
-  /favicon.ico
-  <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32 48xpe="application/ld+json">
+  <!-- ✅ Structured data -->
+  <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -23,7 +22,7 @@
     *, *::before, *::after { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: 'Arial', sans-serif;
+      font-family: Arial, sans-serif;
       color: #4a3f35;
       background: url('/assets/images/Designer (1).png') no-repeat center center / cover;
       background-attachment: fixed;
@@ -52,6 +51,10 @@
     .form-container { flex: 1; text-align: center; }
     header { font-size: 2rem; font-weight: bold; margin-bottom: 1rem; }
     .subtitle { font-size: 1.2rem; margin-bottom: 1rem; line-height: 1.5; }
+
+    /* Accessibility helper for hidden labels */
+    .sr-only { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+
     input {
       width: 100%;
       padding: 0.8rem;
@@ -73,6 +76,22 @@
       cursor: pointer;
     }
     button:hover { background: #c19a6b; }
+
+    /* ✅ Option A: responsive logo sizing within the right sidebar */
+    .logo-wrap {
+      margin-top: 1.5rem;
+      text-align: center;
+      padding: 0 0.5rem;            /* small side padding to avoid touching borders */
+    }
+    .logo-wrap img {
+      display: block;
+      width: 100%;                  /* fill the container width */
+      height: auto;                 /* keep aspect ratio */
+      max-width: 300px;             /* cap size on large screens (tune as you like) */
+      margin: 0 auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
 
     @media (max-width: 900px) {
       .container { flex-direction: column; align-items: center; }
@@ -108,12 +127,29 @@
       </div>
 
       <form id="lead-form" novalidate>
+        <!-- Honeypot field -->
         <input type="text" name="company" style="position:absolute;left:-9999px;visibility:hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <input name="fullName" type="text" placeholder="Full Name" required pattern="^[A-Za-z\\s]{2,}$" title="Letters only">
-        <input name="parcelId" type="text" placeholder="Parcel ID (e.g., 001-041-20)" required pattern="^\\d{3}-\\d{3}-\\d{2}$" title="Format: 001-041-20">
-        <input name="phone" type="tel" placeholder="Phone Number" required pattern="^\\d{7,15}$" title="Digits only">
-        <input name="email" type="email" placeholder="Email" required>
-        <button type="submit">Submit</button>
+
+        <label class="sr-only" for="fullName">Full Name</label>
+        <input id="fullName" name="fullName" type="text" placeholder="Full Name" required
+               pattern="^[A-Za-z\s'-]{2,}$"
+               title="Letters only (you may use apostrophes and hyphens)">
+
+        <!-- Consider relaxing this pattern if APN formats vary across counties -->
+        <label class="sr-only" for="parcelId">Parcel ID</label>
+        <input id="parcelId" name="parcelId" type="text"
+               placeholder="Parcel ID (e.g., 001-041-20)" required
+               pattern="^\d{3}-\d{3}-\d{2}$"
+               title="Format: 001-041-20">
+
+        <label class="sr-only" for="phone">Phone Number</label>
+        <input id="phone" name="phone" type="tel" placeholder="Phone Number" required
+               pattern="^\d{7,15}$" title="Digits only (7–15 digits)">
+
+        <label class="sr-only" for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="Email" required>
+
+        <button id="submitBtn" type="submit">Submit</button>
       </form>
     </div>
 
@@ -123,11 +159,12 @@
       <p>Call us: <strong>+1 201-540-9772</strong></p>
       <p>Email: <strong>omri@landunearth.com</strong></p>
 
-      <!-- ✅ Logo at bottom -->
-      <div style="margin-top: 1.5rem; text-align: center;">
+      <!-- ✅ Responsive logo (Option A) -->
+      <div class="logo-wrap">
         <img src="/assets/images/Leaf_logo.jpg"
-             alt="Land UnEarth Logo"
-            ze sidebar heights only on desktop
+             alt="Land
+  <script>
+    // Desktop: match right sidebar min-height to left sidebar
     window.addEventListener('load', () => {
       const left = document.getElementById('left-sidebar');
       const right = document.getElementById('right-sidebar');
@@ -137,17 +174,28 @@
     });
 
     const form = document.getElementById('lead-form');
+    const submitBtn = document.getElementById('submitBtn');
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+
+      // If browser finds invalid fields, show native messages and abort
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
       const data = Object.fromEntries(new FormData(form));
+      // Honeypot: if bots fill it, silently abort
       if (data.company && data.company.trim()) return;
 
       const endpoint = 'https://script.google.com/macros/s/AKfycbz4tz2RaYm0e0Vny1vg_mTRvVuRdGq13dPI09P4DYA10xk1cNI_Khi10B6yVluf7H1l/exec';
 
       try {
+        submitBtn.disabled = true;
         const res = await fetch(endpoint, {
           method: 'POST',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ ...data, key: 'LandUnEarth2025!' })
         });
 
@@ -166,7 +214,9 @@
         }
       } catch (err) {
         console.error(err);
-        alert('Network error        alert('Network error. Please try again later.');
+        alert('Network error. Please try again later.');
+      } finally {
+        submitBtn.disabled = false;
       }
     });
   </script>
