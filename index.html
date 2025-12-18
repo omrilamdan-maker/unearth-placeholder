@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,8 +34,9 @@
       border: 1px solid rgba(74,63,53,0.25);
       box-shadow: 0 10px 24px rgba(0,0,0,0.30);
       flex: 1 1 300px;
+      max-width: 350px; /* prevent bars from stretching too wide */
     }
-    .form-container { text-align: center; }
+    .form-container { text-align: center; flex: 2 1 400px; }
     header { font-size: 2rem; font-weight: bold; margin-bottom: 1rem; }
     .subtitle { font-size: 1.2rem; margin-bottom: 1rem; line-height: 1.5; }
     input {
@@ -60,7 +60,18 @@
       cursor: pointer;
     }
     button:hover { background: #c19a6b; }
-    @media (max-width: 900px) { .container { flex-direction: column; } }
+    .qr-code {
+      text-align: center;
+      margin-top: 1rem;
+    }
+    .qr-code img {
+      max-width: 150px;
+      height: auto;
+    }
+    @media (max-width: 900px) {
+      .container { flex-direction: column; align-items: center; }
+      .sidebar, .form-container { max-width: 100%; }
+    }
   </style>
 </head>
 
@@ -94,13 +105,19 @@
         <input name="email" type="email" placeholder="Email" required>
         <button type="submit">Submit</button>
       </form>
+
+      <!-- QR Code -->
+      <div class="qr-code">
+        <p>Scan to visit this page:</p>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://your-landing-page-url.com" alt="QR Code">
+      </div>
     </div>
 
     <!-- Right Sidebar -->
     <div class="sidebar">
       <h3>Need Help?</h3>
-      <p>Call us: <strong>+1-800-555-1234</strong></p>
-      <p>Email: <strong>support@landunearth.com</strong></p>
+      <p>Call us: <strong>+1 201-540-9772</strong></p>
+      <p>Email: <strong>omri@landunearth.com</strong></p>
     </div>
   </div>
 
@@ -115,19 +132,17 @@
     // Honeypot check
     if (data.company && data.company.trim()) return;
 
-    // ✅ Your GAS Web App URL (must be inside quotes)
     const endpoint = 'https://script.google.com/macros/s/AKfycbz4tz2RaYm0e0Vny1vg_mTRvVuRdGq13dPI09P4DYA10xk1cNI_Khi10B6yVluf7H1l/exec';
 
     try {
       const res = await fetch(endpoint, {
         method: 'POST',
-        // ✅ Change header to avoid CORS preflight
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ ...data, key: 'LandUnEarth2025!' }) // Secret must match GAS
+        body: JSON.stringify({ ...data, key: 'LandUnEarth2025!' })
       });
 
       const text = await res.text();
-      console.log('GAS response:', text); // helper for debugging
+      console.log('GAS response:', text);
 
       if (text === 'OK') {
         alert('Thanks! We’ll be in touch shortly.');
@@ -149,3 +164,4 @@
 </script>
 </body>
 </html>
+
