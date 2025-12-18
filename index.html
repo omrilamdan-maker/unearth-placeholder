@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,17 +7,15 @@
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <title>Land UnEarth</title>
 
-  <!-- ✅ Favicon for browser tab -->
-  <link rel="icon" href="assets/logo.jpg" type="image/jpeg" />
-
-  <!-- ✅ Structured data for search appearance -->
+  <!-- ✅ Favicon for browser tab (points to the actual file in your repo) -->
+  <link rel="icon" href="/assets/images✅ Structured data for search appearance -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Land UnEarth",
-    "url": "https://landunearth.com",
-    "logo": "https://landunearth.com/assets/logo.jpg"
+    "url": "https://landunearth.com/",
+    "logo": "https://landunearth.com/assets/images/Leaf_logo.jpg"
   }
   </script>
 
@@ -26,7 +25,7 @@
       margin: 0;
       font-family: 'Arial', sans-serif;
       color: #4a3f35;
-      background: url('assets/images/Designer (1).png') no-repeat center center / cover;
+      background: url('/assets/images/Designer (1).png') no-repeat center center / cover;
       background-attachment: fixed;
       display: flex;
       justify-content: center;
@@ -130,16 +129,11 @@
       <p>Call us: <strong>+1 201-540-9772</strong></p>
       <p>Email: <strong>omri@landunearth.com</strong></p>
 
-      <!-- ✅ Logo at bottom -->
+      <!-- ✅ Logo at bottom (points to real path) -->
       <div style="margin-top: 1.5rem; text-align: center;">
-        <img src="assets/logo.jpg" alt="Land UnEarth Logo" style="max-width: 120px; height: auto;" />
-      </div>
-    </div>
-  </div>
-
-<script>
-  // ✅ Equalize sidebar heights only on desktop
-  window.addEventListener('load', () => {
+        <img src="/assets/images/Leaf_logo.jpg"
+             alt="Land UnEarth Logo"
+             style="max-width:120px;height:auto;dow.addEventListener('load', () => {
     const left = document.getElementById('left-sidebar');
     const right = document.getElementById('right-sidebar');
     if (left && right && window.innerWidth > 900) {
@@ -179,7 +173,6 @@
       console.error(err);
       alert('Network error. Please try again later.');
     }
-  });
+   });
 </script>
 </body>
-</html>
