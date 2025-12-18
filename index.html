@@ -6,6 +6,20 @@
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <title>Land UnEarth</title>
 
+  <!-- ✅ Favicon for browser tab -->
+  <link rel="icon" href="/attachments/7eabRM7PtPnQ6btLzjkW3.jpeg" type="image/jpeg" />
+
+  <!-- ✅ Structured data for search appearance -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Land UnEarth",
+    "url": "https://landunearth.com",
+    "logo": "https://landunearth.com/attachments/7eabRM7PtPnQ6btLzjkW3.jpeg"
+  }
+  </script>
+
   <style>
     *, *::before, *::after { box-sizing: border-box; }
     body {
@@ -25,7 +39,7 @@
       width: 90%;
       max-width: 1200px;
       justify-content: space-between;
-      align-items: flex-start; /* ✅ no stretching */
+      align-items: flex-start;
       gap: 1rem;
     }
     .sidebar, .form-container {
@@ -36,8 +50,8 @@
       box-shadow: 0 10px 24px rgba(0,0,0,0.30);
     }
     .sidebar {
-      flex: 0 0 300px; /* fixed width */
-      height: auto;    /* ✅ cut at content height */
+      flex: 0 0 300px;
+      height: auto;
     }
     .form-container {
       flex: 1;
@@ -67,15 +81,14 @@
     }
     button:hover { background: #c19a6b; }
 
-    /* ✅ Mobile adjustments */
     @media (max-width: 900px) {
       .container { flex-direction: column; align-items: center; }
       .sidebar, .form-container {
         width: auto;
         max-width: 90%;
         margin-bottom: 1rem;
-        height: auto;       /* shrink naturally */
-        min-height: unset;  /* remove equal-height logic */
+        height: auto;
+        min-height: unset;
       }
     }
   </style>
@@ -102,9 +115,7 @@
       </div>
 
       <form id="lead-form" novalidate>
-        <!-- Honeypot -->
         <input type="text" name="company" style="position:absolute;left:-9999px;visibility:hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
-
         <input name="fullName" type="text" placeholder="Full Name" required pattern="^[A-Za-z\\s]{2,}$" title="Letters only">
         <input name="parcelId" type="text" placeholder="Parcel ID (e.g., 001-041-20)" required pattern="^\\d{3}-\\d{3}-\\d{2}$" title="Format: 001-041-20">
         <input name="phone" type="tel" placeholder="Phone Number" required pattern="^\\d{7,15}$" title="Digits only">
@@ -118,6 +129,11 @@
       <h3>Need Help?</h3>
       <p>Call us: <strong>+1 201-540-9772</strong></p>
       <p>Email: <strong>omri@landunearth.com</strong></p>
+
+      <!-- ✅ Logo at bottom -->
+      <div style="margin-top: 1.5rem; text-align: center;">
+        <img src="/attachments/7eabRM7PtPnQ6btLzjkW3.jpeg" alt="Land UnEarth Logo" style="max-width: 120px; height: auto;" />
+      </div>
     </div>
   </div>
 
@@ -135,8 +151,6 @@
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(form));
-
-    // Honeypot check
     if (data.company && data.company.trim()) return;
 
     const endpoint = 'https://script.google.com/macros/s/AKfycbz4tz2RaYm0e0Vny1vg_mTRvVuRdGq13dPI09P4DYA10xk1cNI_Khi10B6yVluf7H1l/exec';
@@ -149,8 +163,6 @@
       });
 
       const text = await res.text();
-      console.log('GAS response:', text);
-
       if (text === 'OK') {
         alert('Thanks! We’ll be in touch shortly.');
         form.reset();
