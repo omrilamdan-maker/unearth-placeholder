@@ -25,7 +25,7 @@
       width: 90%;
       max-width: 1200px;
       justify-content: space-between;
-      align-items: flex-start; /* ✅ align tops, let heights vary */
+      align-items: stretch; /* ✅ equalize sidebar heights */
       gap: 1rem;
     }
     .sidebar, .form-container {
@@ -34,12 +34,14 @@
       border-radius: 14px;
       border: 1px solid rgba(74,63,53,0.25);
       box-shadow: 0 10px 24px rgba(0,0,0,0.30);
+      display: flex;
+      flex-direction: column;
     }
     .sidebar {
-      flex: 0 0 300px; /* fixed width, height auto by content */
+      flex: 0 0 300px; /* fixed width */
     }
     .form-container {
-      flex: 1; /* middle expands more horizontally */
+      flex: 1; /* middle expands horizontally */
       text-align: center;
     }
     header { font-size: 2rem; font-weight: bold; margin-bottom: 1rem; }
