@@ -33,10 +33,10 @@
       border-radius: 14px;
       border: 1px solid rgba(74,63,53,0.25);
       box-shadow: 0 10px 24px rgba(0,0,0,0.30);
-      flex: 1 1 300px;
-      max-width: 350px; /* prevent bars from stretching too wide */
+      flex: 1 1 auto; /* shrink to fit content */
+      display: inline-block; /* cut background where text ends */
     }
-    .form-container { text-align: center; flex: 2 1 400px; }
+    .form-container { text-align: center; flex: 2 1 auto; }
     header { font-size: 2rem; font-weight: bold; margin-bottom: 1rem; }
     .subtitle { font-size: 1.2rem; margin-bottom: 1rem; line-height: 1.5; }
     input {
@@ -60,17 +60,9 @@
       cursor: pointer;
     }
     button:hover { background: #c19a6b; }
-    .qr-code {
-      text-align: center;
-      margin-top: 1rem;
-    }
-    .qr-code img {
-      max-width: 150px;
-      height: auto;
-    }
     @media (max-width: 900px) {
       .container { flex-direction: column; align-items: center; }
-      .sidebar, .form-container { max-width: 100%; }
+      .sidebar, .form-container { width: 100%; display: block; }
     }
   </style>
 </head>
@@ -105,12 +97,6 @@
         <input name="email" type="email" placeholder="Email" required>
         <button type="submit">Submit</button>
       </form>
-
-      <!-- QR Code -->
-      <div class="qr-code">
-        <p>Scan to visit this page:</p>
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://landunearth.com" alt="QR Code">
-      </div>
     </div>
 
     <!-- Right Sidebar -->
