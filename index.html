@@ -25,7 +25,7 @@
       width: 90%;
       max-width: 1200px;
       justify-content: space-between;
-      align-items: stretch; /* ✅ equalize sidebar heights */
+      align-items: flex-start; /* ✅ cut sidebars at content height */
       gap: 1rem;
     }
     .sidebar, .form-container {
@@ -34,11 +34,9 @@
       border-radius: 14px;
       border: 1px solid rgba(74,63,53,0.25);
       box-shadow: 0 10px 24px rgba(0,0,0,0.30);
-      display: flex;
-      flex-direction: column;
     }
     .sidebar {
-      flex: 0 0 300px; /* fixed width, equal height with other sidebar */
+      flex: 0 0 300px; /* fixed width, height auto by content */
     }
     .form-container {
       flex: 1; /* middle expands horizontally */
@@ -69,7 +67,11 @@
     button:hover { background: #c19a6b; }
     @media (max-width: 900px) {
       .container { flex-direction: column; align-items: center; }
-      .sidebar, .form-container { width: 100%; }
+      .sidebar, .form-container {
+        width: auto;            /* ✅ don’t force full width */
+        max-width: 90%;         /* keep background visible */
+        margin-bottom: 1rem;    /* spacing between boxes */
+      }
     }
   </style>
 </head>
