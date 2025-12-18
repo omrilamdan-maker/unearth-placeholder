@@ -25,7 +25,7 @@
       width: 90%;
       max-width: 1200px;
       justify-content: space-between;
-      align-items: flex-start; /* ✅ cut sidebars at content height */
+      align-items: flex-start;
       gap: 1rem;
     }
     .sidebar, .form-container {
@@ -36,11 +36,16 @@
       box-shadow: 0 10px 24px rgba(0,0,0,0.30);
     }
     .sidebar {
-      flex: 0 0 300px; /* fixed width, height auto by content */
+      flex: 0 0 300px; /* fixed width */
+      display: flex;
+      flex-direction: column;
+      align-self: stretch; /* ✅ equalize height with the other sidebar */
     }
     .form-container {
       flex: 1; /* middle expands horizontally */
       text-align: center;
+      display: flex;
+      flex-direction: column;
     }
     header { font-size: 2rem; font-weight: bold; margin-bottom: 1rem; }
     .subtitle { font-size: 1.2rem; margin-bottom: 1rem; line-height: 1.5; }
@@ -68,9 +73,10 @@
     @media (max-width: 900px) {
       .container { flex-direction: column; align-items: center; }
       .sidebar, .form-container {
-        width: auto;            /* ✅ don’t force full width */
-        max-width: 90%;         /* keep background visible */
-        margin-bottom: 1rem;    /* spacing between boxes */
+        width: auto;
+        max-width: 90%;
+        margin-bottom: 1rem;
+        align-self: auto; /* reset on mobile so they shrink naturally */
       }
     }
   </style>
