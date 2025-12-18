@@ -7,12 +7,9 @@
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <title>Land UnEarth</title>
 
-  <!-- ✅ Favicons (root-level, standards compliant) -->
+  <!-- ✅ Favicons -->
   /favicon.ico
-  <link rel="icon"favicon.png
-
-  <!-- ✅ Structured data for search appearance -->
-  <script type="application/ld+json">
+  <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32 48xpe="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -128,13 +125,9 @@
 
       <!-- ✅ Logo at bottom -->
       <div style="margin-top: 1.5rem; text-align: center;">
-        /assets/images/Leaf_logo.jpg
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // ✅ Equalize sidebar heights only on desktop
+        <img src="/assets/images/Leaf_logo.jpg"
+             alt="Land UnEarth Logo"
+            ze sidebar heights only on desktop
     window.addEventListener('load', () => {
       const left = document.getElementById('left-sidebar');
       const right = document.getElementById('right-sidebar');
@@ -162,7 +155,7 @@
         if (text === 'OK') {
           alert('Thanks! We’ll be in touch shortly.');
           form.reset();
-        } else if (text === 'Duplicate')        } else if (text === 'Duplicate') {
+        } else if (text === 'Duplicate') {
           alert('This Parcel/Phone/Email already exists.');
         } else if (text === 'Invalid') {
           alert('Invalid data format.');
@@ -173,7 +166,7 @@
         }
       } catch (err) {
         console.error(err);
-        alert('Network error. Please try again later.');
+        alert('Network error        alert('Network error. Please try again later.');
       }
     });
   </script>
