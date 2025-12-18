@@ -7,15 +7,18 @@
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <title>Land UnEarth</title>
 
-  <!-- ✅ Favicon for browser tab (points to the actual file in your repo) -->
-  <link rel="icon" href="/assets/images✅ Structured data for search appearance -->
+  <!-- ✅ Favicons (root-level, standards compliant) -->
+  /favicon.ico
+  <link rel="icon"favicon.png
+
+  <!-- ✅ Structured data for search appearance -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Land UnEarth",
     "url": "https://landunearth.com/",
-    "logo": "https://landunearth.com/assets/images/Leaf_logo.jpg"
+    "logo": "https://landunearth.com/favicon.png"
   }
   </script>
 
@@ -48,14 +51,8 @@
       border: 1px solid rgba(74,63,53,0.25);
       box-shadow: 0 10px 24px rgba(0,0,0,0.30);
     }
-    .sidebar {
-      flex: 0 0 300px;
-      height: auto;
-    }
-    .form-container {
-      flex: 1;
-      text-align: center;
-    }
+    .sidebar { flex: 0 0 300px; height: auto; }
+    .form-container { flex: 1; text-align: center; }
     header { font-size: 2rem; font-weight: bold; margin-bottom: 1rem; }
     .subtitle { font-size: 1.2rem; margin-bottom: 1rem; line-height: 1.5; }
     input {
@@ -129,50 +126,55 @@
       <p>Call us: <strong>+1 201-540-9772</strong></p>
       <p>Email: <strong>omri@landunearth.com</strong></p>
 
-      <!-- ✅ Logo at bottom (points to real path) -->
+      <!-- ✅ Logo at bottom -->
       <div style="margin-top: 1.5rem; text-align: center;">
-        <img src="/assets/images/Leaf_logo.jpg"
-             alt="Land UnEarth Logo"
-             style="max-width:120px;height:auto;dow.addEventListener('load', () => {
-    const left = document.getElementById('left-sidebar');
-    const right = document.getElementById('right-sidebar');
-    if (left && right && window.innerWidth > 900) {
-      right.style.minHeight = left.offsetHeight + 'px';
-    }
-  });
+        /assets/images/Leaf_logo.jpg
+      </div>
+    </div>
+  </div>
 
-  const form = document.getElementById('lead-form');
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const data = Object.fromEntries(new FormData(form));
-    if (data.company && data.company.trim()) return;
-
-    const endpoint = 'https://script.google.com/macros/s/AKfycbz4tz2RaYm0e0Vny1vg_mTRvVuRdGq13dPI09P4DYA10xk1cNI_Khi10B6yVluf7H1l/exec';
-
-    try {
-      const res = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ ...data, key: 'LandUnEarth2025!' })
-      });
-
-      const text = await res.text();
-      if (text === 'OK') {
-        alert('Thanks! We’ll be in touch shortly.');
-        form.reset();
-      } else if (text === 'Duplicate') {
-        alert('This Parcel/Phone/Email already exists.');
-      } else if (text === 'Invalid') {
-        alert('Invalid data format.');
-      } else if (text === 'Forbidden') {
-        alert('Submission blocked (secret mismatch).');
-      } else {
-        alert('Error: ' + text);
+  <script>
+    // ✅ Equalize sidebar heights only on desktop
+    window.addEventListener('load', () => {
+      const left = document.getElementById('left-sidebar');
+      const right = document.getElementById('right-sidebar');
+      if (left && right && window.innerWidth > 900) {
+        right.style.minHeight = left.offsetHeight + 'px';
       }
-    } catch (err) {
-      console.error(err);
-      alert('Network error. Please try again later.');
-    }
-   });
-</script>
+    });
+
+    const form = document.getElementById('lead-form');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form));
+      if (data.company && data.company.trim()) return;
+
+      const endpoint = 'https://script.google.com/macros/s/AKfycbz4tz2RaYm0e0Vny1vg_mTRvVuRdGq13dPI09P4DYA10xk1cNI_Khi10B6yVluf7H1l/exec';
+
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ ...data, key: 'LandUnEarth2025!' })
+        });
+
+        const text = await res.text();
+        if (text === 'OK') {
+          alert('Thanks! We’ll be in touch shortly.');
+          form.reset();
+        } else if (text === 'Duplicate')        } else if (text === 'Duplicate') {
+          alert('This Parcel/Phone/Email already exists.');
+        } else if (text === 'Invalid') {
+          alert('Invalid data format.');
+        } else if (text === 'Forbidden') {
+          alert('Submission blocked (secret mismatch).');
+        } else {
+          alert('Error: ' + text);
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Network error. Please try again later.');
+      }
+    });
+  </script>
 </body>
