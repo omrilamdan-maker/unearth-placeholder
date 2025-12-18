@@ -25,7 +25,7 @@
       width: 90%;
       max-width: 1200px;
       justify-content: space-between;
-      align-items: flex-start;
+      align-items: flex-start; /* ✅ no stretching */
       gap: 1rem;
     }
     .sidebar, .form-container {
@@ -37,15 +37,18 @@
     }
     .sidebar {
       flex: 0 0 300px; /* fixed width */
-      display: flex;
-      flex-direction: column;
-      align-self: stretch; /* ✅ equalize height with the other sidebar */
+      height: auto;    /* ✅ cut at content height */
+    }
+    /* ✅ force right sidebar to match left sidebar height */
+    .sidebar:last-child {
+      min-height: calc(
+        /* match the height of the first sidebar */
+        var(--left-sidebar-height, auto)
+      );
     }
     .form-container {
-      flex: 1; /* middle expands horizontally */
+      flex: 1;
       text-align: center;
-      display: flex;
-      flex-direction: column;
     }
     header { font-size: 2rem; font-weight: bold; margin-bottom: 1rem; }
     .subtitle { font-size: 1.2rem; margin-bottom: 1rem; line-height: 1.5; }
@@ -76,7 +79,7 @@
         width: auto;
         max-width: 90%;
         margin-bottom: 1rem;
-        align-self: auto; /* reset on mobile so they shrink naturally */
+        height: auto; /* ✅ shrink naturally on mobile */
       }
     }
   </style>
@@ -85,7 +88,7 @@
 <body>
   <div class="container">
     <!-- Left Sidebar -->
-    <div class="sidebar">
+    <div class="sidebar" id="left-sidebar">
       <h3>What Can We Do For You?</h3>
       <ul>
         <li>Get fair offers for your property</li>
@@ -115,17 +118,24 @@
     </div>
 
     <!-- Right Sidebar -->
-    <div class="sidebar">
+    <div class="sidebar" id="right-sidebar">
       <h3>Need Help?</h3>
       <p>Call us: <strong>+1 201-540-9772</strong></p>
       <p>Email: <strong>omri@landunearth.com</strong></p>
     </div>
   </div>
 
-
 <script>
-  const form = document.getElementById('lead-form');
+  // ✅ Script to sync right sidebar height with left sidebar
+  window.addEventListener('load', () => {
+    const left = document.getElementById('left-sidebar');
+    const right = document.getElementById('right-sidebar');
+    if (left && right) {
+      right.style.minHeight = left.offsetHeight + 'px';
+    }
+  });
 
+  const form = document.getElementById('lead-form');
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(form));
