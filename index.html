@@ -39,13 +39,6 @@
       flex: 0 0 300px; /* fixed width */
       height: auto;    /* ✅ cut at content height */
     }
-    /* ✅ force right sidebar to match left sidebar height */
-    .sidebar:last-child {
-      min-height: calc(
-        /* match the height of the first sidebar */
-        var(--left-sidebar-height, auto)
-      );
-    }
     .form-container {
       flex: 1;
       text-align: center;
@@ -73,13 +66,16 @@
       cursor: pointer;
     }
     button:hover { background: #c19a6b; }
+
+    /* ✅ Mobile adjustments */
     @media (max-width: 900px) {
       .container { flex-direction: column; align-items: center; }
       .sidebar, .form-container {
         width: auto;
         max-width: 90%;
         margin-bottom: 1rem;
-        height: auto; /* ✅ shrink naturally on mobile */
+        height: auto;       /* shrink naturally */
+        min-height: unset;  /* remove equal-height logic */
       }
     }
   </style>
@@ -126,11 +122,11 @@
   </div>
 
 <script>
-  // ✅ Script to sync right sidebar height with left sidebar
+  // ✅ Equalize sidebar heights only on desktop
   window.addEventListener('load', () => {
     const left = document.getElementById('left-sidebar');
     const right = document.getElementById('right-sidebar');
-    if (left && right) {
+    if (left && right && window.innerWidth > 900) {
       right.style.minHeight = left.offsetHeight + 'px';
     }
   });
