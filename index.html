@@ -3,48 +3,177 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <title>Land UnEarth</title>
+
   <style>
     *, *::before, *::after { box-sizing: border-box; }
-    body { margin: 0; font-family: Arial, sans-serif; color: #4a3f35; background: #fdf8e7; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-    .container { width: 90%; max-width: 500px; background: white; padding: 2rem; border-radius: 14px; box-shadow: 0 10px 24px rgba(0,0,0,0.1); text-align: center; }
-    input { width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 1px solid #d2b48c; border-radius: 12px; }
-    button { width: 100%; padding: 0.8rem; background: #d2b48c; color: #2f261f; font-weight: bold; border: none; border-radius: 12px; cursor: pointer; }
-    button:disabled { background: #ccc; }
-    .sr-only { display: none; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: #4a3f35;
+      background: url('/assets/images/Designer (1).png') no-repeat center center / cover;
+      background-attachment: fixed;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      width: 90%;
+      max-width: 1200px;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .sidebar, .form-container {
+      background: rgba(255, 248, 231, 0.95);
+      padding: 1.5rem;
+      border-radius: 14px;
+      border: 1px solid rgba(74,63,53,0.25);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.30);
+    }
+    .sidebar { flex: 0 0 300px; height: auto; }
+    .form-container { flex: 1; text-align: center; }
+    header { font-size: 2rem; font-weight: bold; margin-bottom: 1rem; }
+    .subtitle { font-size: 1.2rem; margin-bottom: 1rem; line-height: 1.5; }
+
+    .sr-only { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+
+    input {
+      width: 100%;
+      padding: 0.8rem;
+      margin: 0.5rem 0;
+      border: 1px solid #d2b48c;
+      border-radius: 12px;
+      font-size: 1rem;
+      background: #fff;
+      color: #2f261f;
+    }
+    button {
+      width: 100%;
+      padding: 0.8rem;
+      background: #d2b48c;
+      color: #2f261f;
+      font-weight: bold;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+    button:hover { background: #c19a6b; }
+    button:disabled { background: #ccc; cursor: not-allowed; }
+
+    .logo-wrap {
+      margin-top: 1.5rem;
+      text-align: center;
+      padding: 0 0.5rem;
+    }
+    .logo-wrap img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-width: 300px;
+      margin: 0 auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    @media (max-width: 900px) {
+      .container { flex-direction: column; align-items: center; }
+      .sidebar, .form-container {
+        width: auto;
+        max-width: 90%;
+        margin-bottom: 1rem;
+        height: auto;
+      }
+    }
   </style>
 </head>
+
 <body>
   <div class="container">
-    <h2>Land UnEarth</h2>
-    <p>Turn your vacant land into profit.</p>
-    <form id="lead-form">
-      <input type="text" name="company" style="display:none" tabindex="-1">
-      <input name="fullName" type="text" placeholder="Full Name" required>
-      <input name="parcelId" type="text" placeholder="Parcel ID (8 digits)" required>
-      <input name="phone" type="tel" placeholder="Phone Number" required>
-      <input name="email" type="email" placeholder="Email" required>
-      <button id="submitBtn" type="submit">Submit</button>
-    </form>
+    <div class="sidebar" id="left-sidebar">
+      <h3>What Can We Do For You?</h3>
+      <ul>
+        <li>Get fair offers for your property</li>
+        <li>Connect with trusted buyers</li>
+        <li>Quick and hassle-free process</li>
+      </ul>
+    </div>
+
+    <div class="form-container">
+      <header>Land UnEarth</header>
+      <div class="subtitle">
+        Landowner? We are here to turn your vacant land into your profit.<br />
+        Please leave your details below and we will return to you shortly.
+      </div>
+
+      <form id="lead-form" novalidate>
+        <input type="text" name="company" style="position:absolute;left:-9999px;visibility:hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+        <label class="sr-only" for="fullName">Full Name</label>
+        <input id="fullName" name="fullName" type="text" placeholder="Full Name" required
+               pattern="^[A-Za-z\s'-]{2,}$" title="Letters only (min 2 characters)">
+
+        <label class="sr-only" for="parcelId">Parcel ID</label>
+        <input id="parcelId" name="parcelId" type="text"
+               placeholder="Parcel ID (8 digits)" required
+               pattern="[\d\s-]{8,}" title="Please enter your 8-digit Parcel ID">
+
+        <label class="sr-only" for="phone">Phone Number</label>
+        <input id="phone" name="phone" type="tel" placeholder="Phone Number" required
+               pattern="^\d{7,15}$" title="7–15 digits only">
+
+        <label class="sr-only" for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="Email" required>
+
+        <button id="submitBtn" type="submit">Submit</button>
+      </form>
+    </div>
+
+    <div class="sidebar" id="right-sidebar">
+      <h3>Need Help?</h3>
+      <p>Call us: <strong>+1 201-540-9772</strong></p>
+      <p>Email: <strong>omri@landunearth.com</strong></p>
+      <div class="logo-wrap">
+        <img src="/assets/images/Leaf_logo.jpg" alt="Land UnEarth Logo">
+      </div>
+    </div>
   </div>
 
   <script>
+    // Adjust sidebar heights
+    window.addEventListener('load', () => {
+      const left = document.getElementById('left-sidebar');
+      const right = document.getElementById('right-sidebar');
+      if (left && right && window.innerWidth > 900) {
+        right.style.minHeight = left.offsetHeight + 'px';
+      }
+    });
+
     const form = document.getElementById('lead-form');
-    const btn = document.getElementById('submitBtn');
+    const submitBtn = document.getElementById('submitBtn');
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      
-      // REPLACE THE URL BELOW WITH YOUR NEW WEB APP URL
-      const endpoint = 'https://script.google.com/macros/s/AKfycbyW_fHilw1gDReMp06nzznZvabBlQ5RfGHL1RIqGXGLU6MbHsdKeC7CyVw_EE0XOsRN/exec';
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
 
       const data = Object.fromEntries(new FormData(form));
-      if (data.company) return; // Honeypot
+      if (data.company && data.company.trim()) return;
+
+      // 🎯 YOUR NEW ENDPOINT URL
+      const endpoint = 'https://script.google.com/macros/s/AKfycbyW_fHilw1gDReMp06nzznZvabBlQ5RfGHL1RIqGXGLU6MbHsdKeC7CyVw_EE0XOsRN/exec';
 
       try {
-        btn.disabled = true;
-        btn.innerText = 'Sending...';
-        
+        submitBtn.disabled = true;
+        submitBtn.innerText = 'Sending...';
+
         await fetch(endpoint, {
           method: 'POST',
           mode: 'no-cors',
@@ -54,11 +183,13 @@
 
         alert('Success! Check your new sheet.');
         form.reset();
+
       } catch (err) {
-        alert('Error sending data.');
+        console.error(err);
+        alert('Network error. Please try again.');
       } finally {
-        btn.disabled = false;
-        btn.innerText = 'Submit';
+        submitBtn.disabled = false;
+        submitBtn.innerText = 'Submit';
       }
     });
   </script>
