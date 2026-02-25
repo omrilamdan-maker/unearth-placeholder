@@ -185,8 +185,8 @@
 
         const res = await fetch(endpoint, {
           method: 'POST',
-          mode: 'no-cors', // Added to prevent CORS preflight issues
-          headers: { 'Content-Type': 'application/json' },
+          mode: 'no-cors', 
+          headers: { 'Content-Type': 'text/plain' }, 
           body: JSON.stringify({ ...data, key: 'LandUnEarth2025!' })
         });
 
