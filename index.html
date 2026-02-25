@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +6,6 @@
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <title>Land UnEarth</title>
 
-  <!-- ✅ Structured data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -52,7 +50,6 @@
     header { font-size: 2rem; font-weight: bold; margin-bottom: 1rem; }
     .subtitle { font-size: 1.2rem; margin-bottom: 1rem; line-height: 1.5; }
 
-    /* Accessibility helper for hidden labels */
     .sr-only { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
 
     input {
@@ -77,17 +74,16 @@
     }
     button:hover { background: #c19a6b; }
 
-    /* ✅ Option A: responsive logo sizing within the right sidebar */
     .logo-wrap {
       margin-top: 1.5rem;
       text-align: center;
-      padding: 0 0.5rem;            /* small side padding to avoid touching borders */
+      padding: 0 0.5rem;
     }
     .logo-wrap img {
       display: block;
-      width: 100%;                  /* fill the container width */
-      height: auto;                 /* keep aspect ratio */
-      max-width: 300px;             /* cap size on large screens (tune as you like) */
+      width: 100%;
+      height: auto;
+      max-width: 300px;
       margin: 0 auto;
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
@@ -100,7 +96,6 @@
         max-width: 90%;
         margin-bottom: 1rem;
         height: auto;
-        min-height: unset;
       }
     }
   </style>
@@ -108,7 +103,6 @@
 
 <body>
   <div class="container">
-    <!-- Left Sidebar -->
     <div class="sidebar" id="left-sidebar">
       <h3>What Can We Do For You?</h3>
       <ul>
@@ -118,7 +112,6 @@
       </ul>
     </div>
 
-    <!-- Main Form -->
     <div class="form-container">
       <header>Land UnEarth</header>
       <div class="subtitle">
@@ -127,24 +120,22 @@
       </div>
 
       <form id="lead-form" novalidate>
-        <!-- Honeypot field -->
         <input type="text" name="company" style="position:absolute;left:-9999px;visibility:hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
 
         <label class="sr-only" for="fullName">Full Name</label>
         <input id="fullName" name="fullName" type="text" placeholder="Full Name" required
                pattern="^[A-Za-z\s'-]{2,}$"
-               title="Letters only (you may use apostrophes and hyphens)">
+               title="Letters only (min 2 characters)">
 
-        <!-- Consider relaxing this pattern if APN formats vary across counties -->
         <label class="sr-only" for="parcelId">Parcel ID</label>
         <input id="parcelId" name="parcelId" type="text"
-               placeholder="Parcel ID (e.g., 001-041-20)" required
-               pattern="^\d{3}-\d{3}-\d{2}$"
-               title="Format: 001-041-20">
+               placeholder="Parcel ID (8 digits)" required
+               pattern="[\d\s-]{8,}" 
+               title="Please enter your 8-digit Parcel ID">
 
         <label class="sr-only" for="phone">Phone Number</label>
         <input id="phone" name="phone" type="tel" placeholder="Phone Number" required
-               pattern="^\d{7,15}$" title="Digits only (7–15 digits)">
+               pattern="^\d{7,15}$" title="7–15 digits only">
 
         <label class="sr-only" for="email">Email</label>
         <input id="email" name="email" type="email" placeholder="Email" required>
@@ -153,18 +144,17 @@
       </form>
     </div>
 
-    <!-- Right Sidebar -->
     <div class="sidebar" id="right-sidebar">
       <h3>Need Help?</h3>
       <p>Call us: <strong>+1 201-540-9772</strong></p>
       <p>Email: <strong>omri@landunearth.com</strong></p>
-
-      <!-- ✅ Responsive logo (Option A) -->
       <div class="logo-wrap">
-        <img src="/assets/images/Leaf_logo.jpg"
-             alt="Land
+        <img src="/assets/images/Leaf_logo.jpg" alt="Land UnEarth Logo">
+      </div>
+    </div>
+  </div>
+
   <script>
-    // Desktop: match right sidebar min-height to left sidebar
     window.addEventListener('load', () => {
       const left = document.getElementById('left-sidebar');
       const right = document.getElementById('right-sidebar');
@@ -179,45 +169,40 @@
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      // If browser finds invalid fields, show native messages and abort
       if (!form.checkValidity()) {
         form.reportValidity();
         return;
       }
 
       const data = Object.fromEntries(new FormData(form));
-      // Honeypot: if bots fill it, silently abort
       if (data.company && data.company.trim()) return;
 
       const endpoint = 'https://script.google.com/macros/s/AKfycbz4tz2RaYm0e0Vny1vg_mTRvVuRdGq13dPI09P4DYA10xk1cNI_Khi10B6yVluf7H1l/exec';
 
       try {
         submitBtn.disabled = true;
+        submitBtn.innerText = 'Sending...';
+
         const res = await fetch(endpoint, {
           method: 'POST',
+          mode: 'no-cors', // Added to prevent CORS preflight issues
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ ...data, key: 'LandUnEarth2025!' })
         });
 
-        const text = await res.text();
-        if (text === 'OK') {
-          alert('Thanks! We’ll be in touch shortly.');
-          form.reset();
-        } else if (text === 'Duplicate') {
-          alert('This Parcel/Phone/Email already exists.');
-        } else if (text === 'Invalid') {
-          alert('Invalid data format.');
-        } else if (text === 'Forbidden') {
-          alert('Submission blocked (secret mismatch).');
-        } else {
-          alert('Error: ' + text);
-        }
+        // Note: With 'no-cors', we can't read the response text ('OK', 'Duplicate', etc.)
+        // But the data will still reach the Sheet. 
+        alert('Thank you! If the data is valid, we will be in touch shortly.');
+        form.reset();
+
       } catch (err) {
         console.error(err);
-        alert('Network error. Please try again later.');
+        alert('Network error. Please try again.');
       } finally {
         submitBtn.disabled = false;
+        submitBtn.innerText = 'Submit';
       }
     });
   </script>
 </body>
+</html>
